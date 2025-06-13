@@ -1,11 +1,8 @@
 package com.hazavao.app.endpoint.rest.controller.health;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.MediaType;
-import okhttp3.Response;
+import okhttp3.*;
+import org.json.JSONObject;
 
 public class ChatGPTController {
     private static final Dotenv dotenv = Dotenv.load();
@@ -33,7 +30,13 @@ public class ChatGPTController {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+            String responseBody = response.body().string();
+            JSONObject obj = new JSONObject(responseBody);
+            return obj
+                    .getJSONArray("choices")
+                    .getJSONObject(0)
+                    .getJSONObject("message")
+                    .getString("content");
         }
     }
 }
