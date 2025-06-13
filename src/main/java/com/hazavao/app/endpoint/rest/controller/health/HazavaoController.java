@@ -18,11 +18,11 @@ public class HazavaoController {
             new ResponseEntity<>("KO", HttpStatus.INTERNAL_SERVER_ERROR);
 
     @GetMapping("/hazavao")
-    public String definir(@RequestParam String teny) {
+    public String definir(@RequestParam String teny, @RequestParam String API_KEY) {
         String prompt = "Tu es un dictionnaire pédagogique malgache. Farito ny teny '"+teny+"' amin'ny teny malagasy amina fehezanteny iray tokana fotsiny.";
 
         try {
-            return ChatGPTController.askChatGPT(prompt);
+            return ChatGPTController.askChatGPT(prompt, API_KEY);
         } catch (Exception e) {
             return "Error : " + e.getMessage();
         }
