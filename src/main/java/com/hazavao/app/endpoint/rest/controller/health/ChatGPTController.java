@@ -7,10 +7,9 @@ import org.json.JSONObject;
 public class ChatGPTController {
     private static final Dotenv dotenv = Dotenv.load();
 
-    private static final String apiKey = dotenv.get("OPENAI_API_KEY");
     private static final String apiUrl = dotenv.get("OPENAI_API_URL");
 
-    public static String askChatGPT(String prompt) throws Exception {
+    public static String askChatGPT(String prompt, String API_KEY) throws Exception {
         OkHttpClient client = new OkHttpClient();
 
         String json = """
@@ -24,7 +23,7 @@ public class ChatGPTController {
 
         Request request = new Request.Builder()
                 .url(apiUrl)
-                .addHeader("Authorization", "Bearer " + apiKey)
+                .addHeader("Authorization", "Bearer " + API_KEY)
                 .addHeader("Content-Type", "application/json")
                 .post(body)
                 .build();
