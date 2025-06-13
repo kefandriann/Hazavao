@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class HazavaoController {
 
-    public final ChatGPTController chatgpt = new ChatGPTController();
     public static final ResponseEntity<String> OK = new ResponseEntity<>("OK", HttpStatus.OK);
     public static final ResponseEntity<String> KO =
             new ResponseEntity<>("KO", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -23,7 +22,7 @@ public class HazavaoController {
         String prompt = "Tu es un dictionnaire pédagogique malgache. Farito ny teny '"+teny+"' amin'ny teny malagasy amina fehezanteny iray tokana fotsiny.";
 
         try {
-            return chatgpt.executePrompt(prompt);
+            return ChatGPTController.askChatGPT(prompt);
         } catch (Exception e) {
             return "Error : " + e.getMessage();
         }
